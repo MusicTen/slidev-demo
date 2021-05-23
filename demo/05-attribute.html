@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>web components</title>
+</head>
+<body>
+  <my-card name="张三"></my-card>
+  <template id="my-card">
+    <style>
+      :host {
+        display: flex;
+        align-items: center;
+        width: 450px;
+        height: 180px;
+        background-color: #e6b1b1;
+        border: 1px solid #d5d5d5;
+        box-shadow: 1px 1px 5px rgba(82, 80, 80, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        padding: 10px;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
+      .image {
+        flex: 0 0 auto;
+        width: 160px;
+        height: 160px;
+        vertical-align: middle;
+        border-radius: 5px;
+      }
+      .container {
+        box-sizing: border-box;
+        padding: 20px;
+        height: 160px;
+      }
+      .container > .name {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1;
+        margin: 0;
+        margin-bottom: 5px;
+      }
+      .container > .email {
+        font-size: 12px;
+        opacity: 0.75;
+        line-height: 1;
+        margin: 0;
+        margin-bottom: 15px;
+      }
+      .container > .button {
+        padding: 10px 25px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-transform: uppercase;
+      }
+    </style>
+    <img src="https://vitejs.dev/logo.svg" class="image">
+    <div class="container">
+      <p class="name">User Name</p>
+      <p class="email">yourmail@gmail.com</p>
+      <button class="button">Follow</button>
+    </div>
+  </template>
+  <script>
+    class MyCard extends HTMLElement {
+      constructor() {
+        super()
+        const shadowRoot = this.attachShadow({ mode: 'open' });
+        const templateContent = document.querySelector('#my-card').content;
+        shadowRoot.appendChild(templateContent.cloneNode(true))
+        // console.log(this);
+        // console.log(this.getAttribute('name'));
+        const name = this.getAttribute('name');
+        shadowRoot.querySelector('.name').innerText = name;
+      }
+    }
+    customElements.define('my-card', MyCard);
+  </script>
+</body>
+</html>

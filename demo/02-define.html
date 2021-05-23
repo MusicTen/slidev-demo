@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>web components</title>
+</head>
+<body>
+  <my-button></my-button>
+  <script>
+    class MyButton extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        const button = document.createElement('button');
+        button.innerText = '自定义按钮';
+        shadow.appendChild(button);
+        const style = document.createElement('style');
+        style.textContent = `
+          button {
+            color: #fff;
+            background-color: #ccc;
+          }
+        `;
+        shadow.appendChild(style);
+      }
+    }
+    customElements.define('my-button', MyButton);
+  </script>
+</body>
+</html>

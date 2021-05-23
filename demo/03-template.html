@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>web components</title>
+</head>
+<body>
+  <my-button></my-button>
+  <!-- 模板 -->
+  <template id="button-template">
+    <style>
+      button {
+        color: #fff;
+        background-color: #ccc;
+      }
+    </style>
+    <button>自定义按钮</button>
+  </template>
+  <script>
+    class MyButton extends HTMLElement {
+      constructor() {
+        super();
+        // 第一步：创建组件根节元素：shadom DOM节点
+        const shadow = this.attachShadow({ mode: 'open' });
+        // 第二步：获取组件的模板内容
+        const templateContent = document.querySelector('#button-template').content;
+        // 第三步：将模板节点插入到shadom DOM节点中
+        shadow.appendChild(templateContent.cloneNode(true))
+
+        this.$button = shadow.querySelector('button');
+        this.$button.addEventListener('click', () => {
+          // do something
+          console.log('点击');
+        });
+      }
+    }
+    // 注册
+    customElements.define('my-button', MyButton);
+    // customElements.define('组件名', '组件类', '可选参数（继承关系）')
+  </script>
+</body>
+</html>

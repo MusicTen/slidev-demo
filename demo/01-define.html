@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>web components</title>
+  <style>
+    button {
+      background-color: red;
+    }
+    my-button button {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <my-button></my-button>
+  <script>
+    class MyButton extends HTMLElement {
+      constructor() {
+        super()
+        const shadowRoot = this.attachShadow({ mode: 'open' }); // mode(open/closed)是否允许外部访问
+        shadowRoot.innerHTML = `
+          <style>
+            button {
+              color: #fff;
+              background-color: #ccc;
+            }
+          </style>
+          <button>自定义按钮</button>
+        `;
+      }
+    }
+    // customElements.define('组件名', '组件类', '可选参数（继承关系）')
+    customElements.define('my-button', MyButton);
+  </script>
+</body>
+</html>
