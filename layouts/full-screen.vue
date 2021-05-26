@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
   <div class="flex flex-col w-full h-full bg-center bg-cover full-screen"
-       :style="`background-image: url(${props.image})`">
+       :style="`background-image: url(${image})`">
     <slot />
   </div>
 </template>
