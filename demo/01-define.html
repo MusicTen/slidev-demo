@@ -3,7 +3,7 @@
 <head>
   <title>web components</title>
   <style>
-    button {
+    .button {
       background-color: red;
     }
     my-button button {
@@ -31,6 +31,8 @@
     }
     // customElements.define('组件名', '组件类', '可选参数（继承关系）')
     customElements.define('my-button', MyButton);
+    const btn = document.querySelector('my-button')
+    console.log(btn.shadowRoot.querySelector('button').className = 'button');
   </script>
 </body>
 </html>

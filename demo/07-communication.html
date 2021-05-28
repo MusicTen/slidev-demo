@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>web components</title>
+</head>
+<body>
+  <my-button change="fn"></my-button>
+  <template id="button-template">
+    <style>
+      button {
+        color: #fff;
+        background-color: #ccc;
+      }
+    </style>
+    <button>自定义按钮</button>
+  </template>
+  <script>
+    class MyButton extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        const templateContent = document.querySelector('#button-template').content;
+        shadow.appendChild(templateContent.cloneNode(true))
+
+        this.$button = shadow.querySelector('button');
+        const change = this.getAttribute('change');
+        this.$button.addEventListener('click', () => {
+          window[change](123);
+        });
+      }
+    }
+    customElements.define('my-button', MyButton);
+  </script>
+  <script>
+    function fn(v) {
+      console.log(v);
+    }
+  </script>
+</body>
+</html>
